@@ -26,7 +26,7 @@ class Chickin extends CI_Controller {
 		JOIN tb_kandang ON tb_chickin.id_kandang = tb_kandang.id_kandang
 		JOIN tb_status ON tb_chickin.status_chickin = tb_status.id_status
 		JOIN tb_strain ON tb_chickin.id_strain = tb_strain.id_strain
-		WHERE tb_chickin.status_chickin = '$status' AND tb_chickin.id_plant = '$plant' ");
+		WHERE tb_chickin.status_chickin = '$status' AND tb_chickin.id_plant = '$plant' ORDER BY tb_kandang.nama_kandang ASC, tb_chickin.no_chickin ASC");
 
 		$this->template->load('administrator/template','administrator/mod_chickin/view_chickin',$data);
 	}
@@ -35,7 +35,7 @@ class Chickin extends CI_Controller {
 		cek_session_admin();
 		if (isset($_POST['submit'])){
 
-	        if ($this->input->post('no_chickin')!=''){
+	        if ($this->input->post('no_chickin')==''){
 		        $unit_bisnis2 = $this->input->post('id_unit_bisnis');
 		        $plant2 = $this->input->post('id_plant');
 		        $kandang2 = $this->input->post('id_kandang');
@@ -46,7 +46,7 @@ class Chickin extends CI_Controller {
 	        	$q_plant = $this->db->query("SELECT kode_plant FROM tb_plant WHERE id_plant='$plant2' ORDER BY id_plant DESC LIMIT 1")->row();
 	        	$q_kandang = $this->db->query("SELECT kode_kandang FROM tb_kandang WHERE id_kandang='$kandang2' ORDER BY id_kandang DESC LIMIT 1")->row();
 	        	$q_strain = $this->db->query("SELECT kode_strain FROM tb_strain WHERE id_strain='$strain2' ORDER BY id_strain DESC LIMIT 1")->row();
-	        	$q_periode = $this->db->query("SELECT periode FROM tb_chickin WHERE id_unit_bisnis='$unit_bisnis2' ORDER BY id_unit_bisnis DESC LIMIT 1")->row();
+	        	$q_periode = $this->db->query("SELECT periode FROM tb_chickin WHERE id_unit_bisnis='$unit_bisnis2' AND id_kandang='$kandang2' ORDER BY id_unit_bisnis DESC LIMIT 1")->row();
 		        date_default_timezone_set("Asia/Jakarta");
 		        $date= date("Ym");
 		        $tahun=substr($date, 2, 4);
@@ -59,32 +59,33 @@ class Chickin extends CI_Controller {
 		        $kode_periode2 = $q_periode->periode;
 
 				$no_chickin = $kode_unit_bisnis2.$kode_plant2."/".$kode_kandang2."/".$kode_strain2."/".$tahun.$bulan.sprintf("%04s", $kode_periode2+1);
-
-				$data = array('jml_betina' => $this->input->post('jml_betina'),
-							  'jml_jantan' => $this->input->post('jml_jantan'),
-							  'umur_chickin' => $this->input->post('umur_chickin'),
-							  'id_perusahaan' => $this->input->post('id_perusahaan'),
-							  'tgl_chickin' => $this->input->post('tgl_chickin'),
-							  'id_plant' => $this->input->post('id_plant'),
-							  'id_kandang' => $this->input->post('id_kandang'),
-							  'id_strain' => $this->input->post('id_strain'),
-							  'status_chickin' => '1',
-							  'periode' => $kode_periode2+1,
-							  'id_unit_bisnis' => $this->input->post('id_unit_bisnis'),
-							  'id_supplier' => $this->input->post('id_supplier'),
-							  'create_date' => date('Y-m-d H:i:s'),
-							  'no_chickin' => $no_chickin
-							);
 	        }else{
 	        	$no_chickin = $this->input->post('no_chickin');
 	        }
+
+			$data = array('jml_betina' => $this->input->post('jml_betina'),
+						  'jml_jantan' => $this->input->post('jml_jantan'),
+						  'umur_chickin' => $this->input->post('umur_chickin'),
+						  'id_perusahaan' => $this->input->post('id_perusahaan'),
+						  'tgl_chickin' => $this->input->post('tgl_chickin'),
+						  'id_plant' => $this->input->post('id_plant'),
+						  'id_kandang' => $this->input->post('id_kandang'),
+						  'id_strain' => $this->input->post('id_strain'),
+						  'status_chickin' => '1',
+						  'periode' => $kode_periode2+1,
+						  'id_unit_bisnis' => $this->input->post('id_unit_bisnis'),
+						  'id_supplier' => $this->input->post('id_supplier'),
+						  'create_date' => date('Y-m-d H:i:s'),
+						  'no_chickin' => $no_chickin
+						);
 			$this->Model_chickin->insert('tb_chickin',$data);
 			$id = $this->db->insert_id();
 
 			for($i = 1,$j = 0;$i <= $data['umur_chickin'];$i++,$j++) {
-			$dataa = array('id_chickin'	=> $id,
+			$dataa = array('id_chickin'		=> $id,
 						 	'no_chickin'	=> $data['no_chickin'],
 							'hari_ke'		=> $i,
+							'status_jadwal'	=> '1',
 						 	'tgl_pembuatan'	=>date("Y-m-d", strtotime("+$j day",strtotime($data['tgl_chickin']))),
 				 			);
 			$this->Model_chickin->insert('tb_jadwal',$dataa);
@@ -107,8 +108,8 @@ class Chickin extends CI_Controller {
 						   'id_kat_stock'=>$modul[$y]);
 			$this->Model_chickin->insert('tb_stock',$datam);
 			}
-			redirect('chickin');
-			// echo "<script>window.location.href='javascript:history.go(-2);'</script>";
+			// redirect('chickin');
+			echo "<script>window.location.href='javascript:history.go(-2);'</script>";
 		}else{
 			$data['perusahaan'] = $this->Model_chickin->view_all_asc('tb_perusahaan','id_perusahaan');
 			$data['unit_bisnis'] = $this->Model_chickin->view_all_asc('tb_unit_bisnis','id_unit_bisnis');
@@ -215,14 +216,31 @@ class Chickin extends CI_Controller {
 		redirect($_SERVER['HTTP_REFERER']);
     }
 
-    function cancel(){
+    function aktif(){
+        cek_session_admin();
+		$id = $this->uri->segment(3);
+
+		$data = array('status_chickin' => '1'
+					 );
+
+		$data2 = array('status_jadwal' => '1'
+					 );
+		// $where = array('id_chickin' => $this->input->post('id'));
+		$this->Model_chickin->active_nonactive($id, $data, $data2);
+
+		redirect($_SERVER['HTTP_REFERER']);
+    }
+
+    function nonaktif(){
         cek_session_admin();
 		$id = $this->uri->segment(3);
 
 		$data = array('status_chickin' => '2'
 					 );
+		$data2 = array('status_jadwal' => '2'
+					 );
 		// $where = array('id_chickin' => $this->input->post('id'));
-		$this->Model_chickin->cancel($id, $data);
+		$this->Model_chickin->active_nonactive($id, $data, $data2);
 
 		redirect($_SERVER['HTTP_REFERER']);
     }

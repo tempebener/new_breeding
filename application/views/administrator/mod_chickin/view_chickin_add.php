@@ -74,7 +74,7 @@
                     <tr><th scope='row'>Jumlah Betina</th>    <td><input type='text' class='form-control' autocomplete='off' name='jml_betina' required ></td></tr>
                     <tr><th width='150px' scope='row'>Jumlah Jantan</th>    <td><input type='text' class='form-control' autocomplete='off' name='jml_jantan' required ></td></tr>
                     <tr><th scope='row'>Umur</th>    <td><input type='text' class='form-control' autocomplete='off' name='umur_chickin' placeholder='Misal (hari): 365' required ></td></tr>
-                    <tr class='hidden'><th scope='row'>Periode</th>    <td><input type='text' class='form-control' autocomplete='off' name='l' required ></td></tr>
+                    <tr class='hidden'><th scope='row'>Periode</th>    <td><input type='text' class='form-control' autocomplete='off' name='periode'></td></tr>
                     <tr><th scope='row'>Asal DOC</th>    <td><select class='select-css form-control' name='id_supplier' id='supplier' required>
                                                             <option value=''>- Pilih -</option>";
                                                             foreach ($supplier as $r) {
@@ -91,6 +91,5 @@
                 <button type='submit' name='submit' class='btn btn-info pull-right'>Tambahkan</button>
                 <a href='javascript:window.history.go(-1);'><button type='button' class='btn btn-default pull-right'>Batal</button></a>
               </div>
-            </div>
 
             </div></form>";

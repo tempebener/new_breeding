@@ -72,27 +72,29 @@
         <tbody>
 
         <?php
-        $no = 1;
-        foreach ($record->result_array() as $row){
-        echo "<tr ><td >$no</td>
-                  <td>$row[no_chickin]</td>
-                  <td>$row[kandang]</td>
-                  <td>$row[jml_betina]</td>
-                  <td>$row[jml_jantan]</td>
-                  <td>$row[strain]</td>
-                  <td>".tgl_indo($row['tgl_chickin'])."</td>
-                  <td>$row[status]</td>
-                  <td><center>
-                    <a class='btn btn-success btn-xs' title='Edit Data' href='".base_url()."chickin/edit/$row[id_chickin]'><span class='glyphicon glyphicon-edit'></span></a>
-                    <a class='btn btn-warning btn-xs' title='Non-Aktifkan Data' href='".base_url()."chickin/delete/$row[id_chickin]' onclick=\"return confirm('Apa anda yakin untuk Non-Aktifkan Data ini?')\"><span class='glyphicon glyphicon-minus'></span></a>
-                    <a class='btn btn-danger btn-xs' title='Delete Data' href='".base_url()."chickin/delete/$row[id_chickin]' onclick=\"return confirm('Apa anda yakin untuk Delete Data ini?')\"><span class='glyphicon glyphicon-remove'></span></a>
-                  </center></td>
-              </tr>
-
-              ";
-$no++;
-}
-?>
+        foreach ($record->result_array() as $row){ ?>
+          <tr>
+            <td><?= isset($no) ? ++$no : $no=1 ?> </td>
+            <td><?= $row['no_chickin'] ?></td>
+            <td><?= $row['kandang'] ?></td>
+            <td><?= $row['jml_betina'] ?></td>
+            <td><?= $row['jml_jantan'] ?></td>
+            <td><?= $row['strain'] ?></td>
+            <td><?= tgl_indo($row['tgl_chickin']) ?></td>
+            <td><?= $row['status'] ?></td>
+            <td><center>
+              <a class='btn btn-success btn-xs' title='Edit Data' href='".base_url()."chickin/edit/$row[id_chickin]'><span class='glyphicon glyphicon-edit'></span></a>
+              <?php
+                  if($row['status_chickin']=="1"){
+                    echo "<a class='btn btn-warning btn-xs' title='Non-Aktifkan Data' href='".base_url()."chickin/nonaktif/$row[id_chickin]' onclick=\"return confirm('Apa anda yakin untuk Non-Aktifkan Data ini?')\"><span class='glyphicon glyphicon-minus'></span></a>";
+                  }else{
+                    echo "<a class='btn btn-warning btn-xs' title='Aktifkan Data' href='".base_url()."chickin/aktif/$row[id_chickin]' onclick=\"return confirm('Apa anda yakin untuk Aktifkan Data ini?')\"><span class='glyphicon glyphicon-minus'></span></a>";
+                  }
+                ?>
+              <a class='btn btn-danger btn-xs' title='Delete Data' href='".base_url()."chickin/delete/$row[id_chickin]' onclick=\"return confirm('Apa anda yakin untuk Delete Data ini?')\"><span class='glyphicon glyphicon-remove'></span></a>
+            </center></td>
+        </tr>
+      <?php } ?>
       </tbody>
     </table>
   </div>

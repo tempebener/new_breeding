@@ -33,10 +33,13 @@ class Model_chickin extends CI_model{
         return $this->db->delete($table, $where);
     }
 
-    function cancel($id, $data){
+    function active_nonactive($id, $data, $data2){
         $this->db
                 ->where(['id_chickin' => $id])
                 ->update('tb_chickin',$data);
+        $this->db
+                ->where(['id_chickin' => $id])
+                ->update('tb_jadwal',$data2);
     }
 
     function view_all_asc($table,$order){
