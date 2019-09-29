@@ -83,15 +83,15 @@
             <td><?= tgl_indo($row['tgl_chickin']) ?></td>
             <td><?= $row['status'] ?></td>
             <td><center>
-              <a class='btn btn-success btn-xs' title='Edit Data' href='".base_url()."chickin/edit/$row[id_chickin]'><span class='glyphicon glyphicon-edit'></span></a>
+              <a class='btn btn-success btn-xs' title='Edit Data' href="<?= base_url('chickin/edit/'.$row['id_chickin']) ?>"><span class='glyphicon glyphicon-edit'></span></a>
               <?php
                   if($row['status_chickin']=="1"){
-                    echo "<a class='btn btn-warning btn-xs' title='Non-Aktifkan Data' href='".base_url()."chickin/nonaktif/$row[id_chickin]' onclick=\"return confirm('Apa anda yakin untuk Non-Aktifkan Data ini?')\"><span class='glyphicon glyphicon-minus'></span></a>";
+                    echo "<a class='btn btn-warning btn-xs' title='Non-Aktifkan Data' href='".base_url()."chickin/nonaktif/$row[id_chickin]' onclick=\"return confirm('Apa anda yakin untuk Non-Aktifkan Data ini?')\"><span class='fas fa-recycle'></span></a>";
                   }else{
-                    echo "<a class='btn btn-warning btn-xs' title='Aktifkan Data' href='".base_url()."chickin/aktif/$row[id_chickin]' onclick=\"return confirm('Apa anda yakin untuk Aktifkan Data ini?')\"><span class='glyphicon glyphicon-minus'></span></a>";
+                    echo "<a class='btn btn-warning btn-xs' title='Aktifkan Data' href='".base_url()."chickin/aktif/$row[id_chickin]' onclick=\"return confirm('Apa anda yakin untuk Aktifkan Data ini?')\"><span class='fas fa-recycle'></span></a>";
                   }
                 ?>
-              <a class='btn btn-danger btn-xs' title='Delete Data' href='".base_url()."chickin/delete/$row[id_chickin]' onclick=\"return confirm('Apa anda yakin untuk Delete Data ini?')\"><span class='glyphicon glyphicon-remove'></span></a>
+              <a class='btn btn-danger btn-xs' title='Delete Data' href="<?= base_url('chickin/delete/'.$row['id_chickin']) ?>" onclick=\"return confirm('Apa anda yakin untuk Delete Data ini?')\"><span class='glyphicon glyphicon-remove'></span></a>
             </center></td>
         </tr>
       <?php } ?>

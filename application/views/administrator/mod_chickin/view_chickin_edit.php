@@ -37,26 +37,34 @@ $ub = $this->db->query($sql2)->row_array();
                     <tr><th scope='row'>Strain</th>    <td><input type='text' class='form-control' name='j' id='strain' autocomplete='off' value='$ub[nama_strain] ($ub[kode_strain])' readonly required></td></tr>
                     <tr><th scope='row'>Periode</th>    <td><input type='text' class='form-control' readonly autocomplete='off' name='l' value='$row[periode]'></td></tr>
                     <tr><th scope='row'>Asal DOC</th>    <td><input type='text' class='form-control' name='n' id='supplier' autocomplete='off' value='$ub[kode_unit_bisnis] $ub[nama_supplier]' readonly required></td></tr>
+                    <tr><th scope='row'>Umur</th>    <td><input type='text' class='form-control' name='d' placeholder='Misal (hari): 365' value='$row[umur_chickin]' readonly required></td></tr>
 
                   </tbody>
                   </table>
                 </div>
 
-                <div class='col-md-12'>
-                  <div class='form-group form-input pad-input-right'>
-                    <label><strong>Jumlah Betina</strong></label>
-                      <input type='number' class='form-control' autocomplete='off' name='b' value='$row[jml_betina]' required min='0' step='0'>
-                  </div>
+                <div class='col-md-6 no-border'>
+                  <div><h4><u> <font color='#444'>Jumlah Ayam</font></u></h4></div>
+                  <table class='table table-condensed table-bordered'>
+                  <tbody>
 
-                  <div class='form-group form-input'>
-                    <label><strong>Jumlah Jantan</strong></label>
-                      <input type='number' class='form-control' autocomplete='off' name='c' value='$row[jml_jantan]' required min='0' step='0'>
-                  </div>
+                    <tr><th scope='row'>Jumlah Betina</th>    <td><input type='number' class='form-control' autocomplete='off' name='b' value='$row[jml_betina]' required min='0' step='0'></td></tr>
 
-                  <div class='form-group form-input pad-input-left'>
-                    <label><strong>Umur</strong></label>
-                      <input type='number' class='form-control' autocomplete='off' name='d' placeholder='Misal (hari): 365' value='$row[umur_chickin]' required min='0' step='0'>
-                  </div>
+                  </tbody>
+                  </table>
+
+                </div>
+
+                <div class='col-md-6 no-border'>
+                  <div><h3><b> <font color='black'>&nbsp;</font><b></h3></div>
+                  <table class='table table-condensed table-bordered'>
+                  <tbody>
+
+                    <tr><th scope='row'>Jumlah Jantan</th>    <td><input type='number' class='form-control' autocomplete='off' name='c' value='$row[jml_jantan]' required min='0' step='0'></td></tr>
+
+                  </tbody>
+                  </table>
+
                 </div>
               </div>
 
