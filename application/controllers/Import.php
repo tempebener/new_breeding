@@ -16,7 +16,7 @@ class Import extends CI_Controller {
 		$data['page'] = 'import';
         $data['title'] = 'Import XLSX';
 
-		$this->template->load('administrator/template','administrator/import',$data);
+		$this->template->load('administrator/template','administrator/mod_import/import',$data);
 	}
 
 	// import excel data
@@ -95,7 +95,7 @@ class Import extends CI_Controller {
                 echo "Please import correct file";
             }
         }
-        $this->load->view('import/display', $data);
+		$this->template->load('administrator/template','administrator/mod_import/display',$data);
         
     }
 }

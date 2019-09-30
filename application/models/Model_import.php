@@ -50,12 +50,16 @@ class Model_import extends CI_model{
     // save data
     public function importData() {
         $data = $this->_batchImport;
-        $this->db->insert_batch('import', $data);
+        $sql = $this->db->query("SELECT * FROM mu_barang a JOIN mu_kategori b ON a.id_kategori=b.id_kategori");
+        $this->db->insert_batch($sql, $data);
     }
     // get employee list
     public function employeeList() {
-        $this->db->select(array('e.id', 'e.first_name', 'e.last_name', 'e.email', 'e.dob', 'e.contact_no'));
-        $this->db->from('import as e');
+        $this->db->select(array('a.*', 'b.*', 'c.*', 'd.*'));
+        $this->db->from('tb_chickin AS a');
+        $this->db->join('tb_plant AS b', $table1.'.id_plant=tb_plant.id_plant');
+        $this->db->join('tb_kandang AS c', $table1.'.id_kandang=tb_kandang.id_kandang');
+        $this->db->join('tb_strain AS d', $table1.'.id_strain=tb_strain.id_strain');
         $query = $this->db->get();
         return $query->result_array();
     }

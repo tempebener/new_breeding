@@ -2,7 +2,7 @@
     <div class="col-lg-12">
         <h1>Lawyers <small>Overview</small></h1>
         <ol class="breadcrumb">
-            <li class="active"><i class="fa fa-list"></i> Import Members</li>
+            <li class="active"><i class="fa fa-list"></i> Import Data</li>
         </ol>            
     </div>
 </div><!-- /.row -->
