@@ -2,7 +2,7 @@
   <div class="box table-responsive padding">
 
     <div class="box-header">
-      <h3 class="box-title">ChickIN</h3>
+      <h3 class="box-title">ChickINs</h3>
       <a class='pull-right btn btn-primary btn-sm' href='<?php echo base_url(); ?>chickin/add'>Tambahkan Data</a>
     </div><!-- /.box-header -->
     <div class="box-body">
@@ -11,7 +11,7 @@
 
   			  <div class="col-md-12 min-left">
             <div class="col-md-2">
-              <h4 width="120px" scope="row">Plant</h4> 
+              <h4 width="120px" scope="row">Plant</h4>
             </div>
             <div class="col-md-10">
               <select name="plant" class="select-css form-control" required>
@@ -28,7 +28,7 @@
 
           <div class="col-md-12 min-left">
             <div class="col-md-2">
-              <h4 width="120px" scope="row">Status</h4> 
+              <h4 width="120px" scope="row">Status</h4>
             </div>
             <div class="col-md-10">
               <select name="status" class="select-css form-control" required>
@@ -47,7 +47,7 @@
       </div>
     </div>
   </div>
-</div>  
+</div>
 
 
 <div class="col-xs-12">
