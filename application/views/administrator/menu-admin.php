@@ -38,7 +38,7 @@
                 <!--<li><a href="<?php echo base_url(); ?>app/hutang_dagang"><i class="far fa-circle"></i> Hutang Dagang</a></li>-->
               <!-- </ul> -->
             </li>
-            
+
             <li class="treeview">
               <a href="#"><i class="fa fa-archive"></i> <span>Stock</span><i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
@@ -53,7 +53,7 @@
               <ul class="treeview-menu">
                 <li><a href="<?php echo base_url(); ?>laporan_kandang"><i class="far fa-circle"></i> Laporan Kandang</a></li>
                 <li><a href="<?php echo base_url(); ?>laporan_farm"><i class="far fa-circle"></i> Laporan Farm</a></li>
-                <li><a href="<?php echo base_url(); ?>daily_report_summary"><i class="far fa-circle"></i> Daily Report Summary</a></li>
+                <li><a href="<?php echo base_url(); ?>laporan_kandang_qop"><i class="far fa-circle"></i> Daily Report Summary</a></li>
               </ul>
             </li>
 
