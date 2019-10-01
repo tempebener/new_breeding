@@ -23,6 +23,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
+// windows path
+define('BASH_PATH', 'C:/xampp-563/htdocs/new_breeding2/');	
+define('ROOT_UPLOAD_IMPORT_PATH', BASH_PATH . 'asset/uploads/import/');
+
 $config['base_url']  =  "http://".$_SERVER['HTTP_HOST'];
 
 $config['base_url'] .= preg_replace('@/+$@', '', dirname($_SERVER['SCRIPT_NAME'])).'/';
